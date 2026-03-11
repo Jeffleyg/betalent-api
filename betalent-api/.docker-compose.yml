@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  # Banco de Dados
+  mysql:
+    image: mysql:8.0
+    container_name: betalent-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: betalent_db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  # Mock dos Gateways (Imagem fornecida no desafio)
+  gateways-mock:
+    image: matheusprotzen/gateways-mock
+    container_name: gateways-mock
+    ports:
+      - "3001:3001"
+      - "3002:3002"
+    environment:
+      - REMOVE_AUTH=false # Mantemos a auth para o Nível 3
+
+volumes:
+  db_data:
