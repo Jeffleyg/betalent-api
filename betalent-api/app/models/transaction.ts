@@ -1,37 +1,26 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, belongsTo, manyToMany } from '@adonisjs/lucid/orm'
-import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations'
-import Product from '#models/product'
-import Client from '#models/client'
-import Gateway from './gateway'
+import { BaseModel, column} from '@adonisjs/lucid/orm'
+import { Role } from '../contracts/roles'
+import { withAuthFinder } from '@adonisjs/auth/mixins/lucid';
+import hash from '@adonisjs/core/services/hash';
+import { compose } from '@adonisjs/core/helpers'
+import { type AccessToken, DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
 
-export default class Transaction extends BaseModel {
- @column({ isPrimary: true })
+export default class User extends compose( BaseModel, withAuthFinder(hash)) {
+  @column({ isPrimary: true })
   declare id: number
 
   @column()
-  declare clientId: number
+  declare fullName: string | null
 
   @column()
-  declare gatewayId: number | null
+  declare email: string
+
+  @column({ serializeAs: null })
+  declare password: string
 
   @column()
-  declare externalId: string | null
-
-  @column()
-  declare productId: number
-
-  @column()
-  declare quantity: number
-
-  @column()
-  declare totalAmount: number
-
-  @column()
-  declare status: 'pending' | 'paid' | 'failed' | 'refunded'
-
-  @column()
-  declare cardLastNumbers: string
+  declare role: Role
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -39,14 +28,14 @@ export default class Transaction extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 
-  @manyToMany(() => Product, {
-    pivotTable: 'transaction_products',
-  })
-  declare products: ManyToMany<typeof Product>
+  static accessTokens = DbAccessTokensProvider.forModel(User)
+  declare currentAccessToken?: AccessToken
 
-  @belongsTo(() => Client)
-  declare client: BelongsTo<typeof Client>
-
-  @belongsTo(() => Gateway)
-  declare gateway: BelongsTo<typeof Gateway>
+  get initials() {
+    const [first, last] = this.fullName ? this.fullName.split(' ') : this.email.split('@')
+    if (first && last) {
+      return `${first.charAt(0)}${last.charAt(0)}`.toUpperCase()
+    }
+    return `${first.slice(0, 2)}`.toUpperCase()
+  }
 }
