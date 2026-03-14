@@ -24,4 +24,22 @@ export default await Env.create(new URL('../', import.meta.url), {
 
   // Session
   SESSION_DRIVER: Env.schema.enum(['cookie', 'memory', 'database'] as const),
+
+  // Database
+  DB_CONNECTION: Env.schema.enum(['sqlite', 'mysql'] as const),
+  DB_HOST: Env.schema.string.optional(),
+  DB_PORT: Env.schema.number.optional(),
+  DB_USER: Env.schema.string.optional(),
+  DB_PASSWORD: Env.schema.string.optional(),
+  DB_DATABASE: Env.schema.string.optional(),
+
+  // Gateway 1
+  GATEWAY1_BASE_URL: Env.schema.string({ format: 'url', tld: false }),
+  GATEWAY1_LOGIN_EMAIL: Env.schema.string(),
+  GATEWAY1_LOGIN_TOKEN: Env.schema.string(),
+
+  // Gateway 2
+  GATEWAY2_BASE_URL: Env.schema.string({ format: 'url', tld: false }),
+  GATEWAY2_AUTH_TOKEN: Env.schema.string(),
+  GATEWAY2_AUTH_SECRET: Env.schema.string(),
 })
