@@ -1,6 +1,37 @@
 version: '3.8'
 
 services:
+  app:
+    build:
+      context: .
+    container_name: betalent-api
+    depends_on:
+      - mysql
+      - gateways-mock
+    environment:
+      NODE_ENV: development
+      HOST: 0.0.0.0
+      PORT: 3333
+      APP_URL: http://localhost:3333
+      APP_KEY: docker-app-key
+      LOG_LEVEL: info
+      SESSION_DRIVER: memory
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_DATABASE: betalent_db
+      GATEWAY1_BASE_URL: http://gateways-mock:3001
+      GATEWAY1_LOGIN_EMAIL: dev@betalent.tech
+      GATEWAY1_LOGIN_TOKEN: FEC9BB078BF338F464F96B48089EB498
+      GATEWAY2_BASE_URL: http://gateways-mock:3002
+      GATEWAY2_AUTH_TOKEN: tk_f2198cc671b5289fa856
+      GATEWAY2_AUTH_SECRET: 3d15e8ed6131446ea7e3456728b1211f
+    ports:
+      - "3333:3333"
+    command: sh -c "node ace migration:run ; node ace db:seed ; node ace serve --watch"
+
   # Banco de Dados
   mysql:
     image: mysql:8.0
@@ -10,7 +41,7 @@ services:
       MYSQL_DATABASE: betalent_db
       MYSQL_ROOT_PASSWORD: root
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
 
@@ -22,7 +53,7 @@ services:
       - "3001:3001"
       - "3002:3002"
     environment:
-      - REMOVE_AUTH=false # Mantemos a auth para o Nível 3
+      - REMOVE_AUTH=false
 
 volumes:
   db_data:
