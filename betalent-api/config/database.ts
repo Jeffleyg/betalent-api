@@ -1,3 +1,4 @@
+import env from '#start/env'
 import app from '@adonisjs/core/services/app'
 import { defineConfig } from '@adonisjs/lucid'
 
@@ -5,7 +6,7 @@ const dbConfig = defineConfig({
   /**
    * Default connection used for all queries.
    */
-  connection: 'sqlite',
+  connection: env.get('DB_CONNECTION'),
 
   connections: {
     /**
@@ -92,21 +93,21 @@ const dbConfig = defineConfig({
      * Microsoft SQL Server connection.
      * Install package to switch: npm install tedious
      */
-    // mssql: {
-    //   client: 'mssql',
-    //   connection: {
-    //     server: env.get('DB_HOST'),
-    //     port: env.get('DB_PORT'),
-    //     user: env.get('DB_USER'),
-    //     password: env.get('DB_PASSWORD'),
-    //     database: env.get('DB_DATABASE'),
-    //   },
-    //   migrations: {
-    //     naturalSort: true,
-    //     paths: ['database/migrations'],
-    //   },
-    //   debug: app.inDev,
-    // },
+    mssql: {
+      client: 'mssql',
+      connection: {
+        server: env.get('DB_HOST', '127.0.0.1'),
+        port: env.get('DB_PORT', 3306),
+        user: env.get('DB_USER', 'root'),
+        password: env.get('DB_PASSWORD', 'root'),
+        database: env.get('DB_DATABASE', 'betalent_db'),
+      },
+      migrations: {
+        naturalSort: true,
+        paths: ['database/migrations'],
+      },
+      debug: app.inDev,
+    },
 
     /**
      * libSQL (Turso) connection.
