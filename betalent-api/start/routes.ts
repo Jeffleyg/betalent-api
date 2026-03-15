@@ -85,13 +85,13 @@ router
         router.get('/:id', [ProductsController, 'show'])
         router
           .post('/', [ProductsController, 'store'])
-          .use(middleware.role({ roles: [Roles.ADMIN, Roles.MANAGER] }))
+          .use(middleware.role({ roles: [Roles.ADMIN, Roles.MANAGER, Roles.FINANCE] }))
         router
           .put('/:id', [ProductsController, 'update'])
-          .use(middleware.role({ roles: [Roles.ADMIN, Roles.MANAGER] }))
+          .use(middleware.role({ roles: [Roles.ADMIN, Roles.MANAGER, Roles.FINANCE] }))
         router
           .delete('/:id', [ProductsController, 'destroy'])
-          .use(middleware.role({ roles: [Roles.ADMIN, Roles.MANAGER] }))
+          .use(middleware.role({ roles: [Roles.ADMIN, Roles.MANAGER, Roles.FINANCE] }))
       })
       .prefix('products')
       .as('products')
