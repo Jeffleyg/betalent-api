@@ -1,7 +1,7 @@
 const openApiDocument = {
   openapi: '3.0.3',
   info: {
-    title: 'beTalent API - Nível 2',
+    title: 'beTalent API - Nível 3',
     version: '1.0.0',
     description: 'Documentação Swagger para testes da API multi-gateway.',
   },
@@ -173,7 +173,7 @@ const openApiDocument = {
       },
       post: {
         tags: ['Products'],
-        summary: 'Criar produto (ADMIN/MANAGER)',
+        summary: 'Criar produto (ADMIN/MANAGER/FINANCE)',
         security: [{ bearerAuth: [] }],
         requestBody: {
           required: true,
@@ -196,7 +196,7 @@ const openApiDocument = {
       },
       put: {
         tags: ['Products'],
-        summary: 'Atualizar produto (ADMIN/MANAGER)',
+        summary: 'Atualizar produto (ADMIN/MANAGER/FINANCE)',
         security: [{ bearerAuth: [] }],
         parameters: [{ in: 'path', name: 'id', required: true, schema: { type: 'integer' } }],
         requestBody: {
@@ -211,7 +211,7 @@ const openApiDocument = {
       },
       delete: {
         tags: ['Products'],
-        summary: 'Remover produto (ADMIN/MANAGER)',
+        summary: 'Remover produto (ADMIN/MANAGER/FINANCE)',
         security: [{ bearerAuth: [] }],
         parameters: [{ in: 'path', name: 'id', required: true, schema: { type: 'integer' } }],
         responses: { 204: { description: 'Produto removido' } },
@@ -279,13 +279,13 @@ const openApiDocument = {
     '/api/v1/users': {
       get: {
         tags: ['Users'],
-        summary: 'Listar usuários (ADMIN/MANAGER)',
+        summary: 'Listar usuários (ADMIN/MANAGER/FINANCE)',
         security: [{ bearerAuth: [] }],
         responses: { 200: { description: 'Lista de usuários' } },
       },
       post: {
         tags: ['Users'],
-        summary: 'Criar usuário (ADMIN/MANAGER)',
+        summary: 'Criar usuário (ADMIN/MANAGER/FINANCE)',
         security: [{ bearerAuth: [] }],
         requestBody: {
           required: true,
