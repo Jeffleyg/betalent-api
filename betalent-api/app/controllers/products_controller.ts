@@ -25,16 +25,26 @@ export default class ProductsController {
     return response.created(product)
   }
 
-  async update({ params, request }: HttpContext) {
+  async update({ params, request, response }: HttpContext) {
     const payload = await request.validateUsing(updateProductValidator)
-    const product = await Product.findOrFail(params.id)
+    const product = await Product.find(params.id)
+    if (!product) {
+      return response.status(404).send({
+        message: 'Product not found'
+      })
+    }
     product.merge(payload)
     await product.save()
     return product
   }
 
   async destroy({ params, response }: HttpContext) {
-    const product = await Product.findOrFail(params.id)
+    const product = await Product.find(params.id)
+    if (!product) {
+      return response.status(404).send({
+        message: 'Product not found'
+      })
+    }
     await product.delete()
     return response.noContent()
   }
