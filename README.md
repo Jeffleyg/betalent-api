@@ -194,7 +194,7 @@ access_tokens
 |---|---|
 | `ADMIN` | Acesso total — gateways, pagamentos, reembolso, usuários, produtos |
 | `MANAGER` | Usuários + produtos (sem gateways e reembolso) |
-| `FINANCE` | Pode solicitar reembolsos |
+| `FINANCE` | Pode gerenciar produtos e solicitar reembolsos |
 | `USER` | Somente leitura de produtos e perfil próprio |
 
 ---
@@ -226,9 +226,9 @@ Prefixo base: `/api/v1`
 |---|---|---|---|
 | `GET` | `/products` | Qualquer | Listar produtos |
 | `GET` | `/products/:id` | Qualquer | Detalhar produto |
-| `POST` | `/products` | ADMIN, MANAGER | Criar produto |
-| `PUT` | `/products/:id` | ADMIN, MANAGER | Atualizar produto |
-| `DELETE` | `/products/:id` | ADMIN, MANAGER | Remover produto |
+| `POST` | `/products` | ADMIN, MANAGER, FINANCE | Criar produto |
+| `PUT` | `/products/:id` | ADMIN, MANAGER, FINANCE | Atualizar produto |
+| `DELETE` | `/products/:id` | ADMIN, MANAGER, FINANCE | Remover produto |
 
 #### Usuários
 
