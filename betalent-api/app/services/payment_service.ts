@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import db from '@adonisjs/lucid/services/db'
 import Client from '#models/client'
 import Gateway from '#models/gateway'

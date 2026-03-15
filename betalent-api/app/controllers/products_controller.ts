@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import Product from '#models/product'
 import { createProductValidator, updateProductValidator } from '#validators/products'
 import type { HttpContext } from '@adonisjs/core/http'
@@ -8,8 +9,13 @@ export default class ProductsController {
     return products
   }
 
-  async show({ params }: HttpContext) {
-    const product = await Product.findOrFail(params.id)
+  async show({ params, response }: HttpContext) {
+    const product = await Product.find(params.id)
+    if (!product) {
+      return response.status(404).send({
+        message: 'Product not found'
+      })
+    }
     return product
   }
 
