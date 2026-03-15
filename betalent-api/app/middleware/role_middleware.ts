@@ -6,12 +6,13 @@ export default class RoleMiddleware {
   async handle(ctx: HttpContext, next: NextFn, options: { roles?: Role[] } = {}) {
     const user = ctx.auth.getUserOrFail()
     const allowedRoles = options.roles ?? []
+    const userRole = (user.role as Role | undefined) ?? Roles.USER
 
     if (allowedRoles.length === 0) {
       return next()
     }
 
-    if (!allowedRoles.includes(user.role ?? Roles.USER)) {
+    if (!allowedRoles.includes(userRole)) {
       return ctx.response.forbidden({ message: 'Você não tem permissão para esta ação.' })
     }
 
