@@ -1,3 +1,4 @@
+/* eslint-disable @adonisjs/prefer-lazy-controller-import */
 /*
 |--------------------------------------------------------------------------
 | Routes file
@@ -16,7 +17,7 @@ import PaymentsController from '#controllers/payments_controller'
 import ProductsController from '#controllers/products_controller'
 import UsersController from '#controllers/users_controller'
 import GatewaysController from '#controllers/gateways_controller'
-import ClientsController from '#controllers/clients_controller'
+import ClientsController from '#controllers/client_controller'
 import { Roles } from '#contracts/roles'
 import openApiDocument from '#start/openapi'
 

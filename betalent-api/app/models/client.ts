@@ -1,6 +1,7 @@
 import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon';
-import Transaction from './transaction';
+import type { HasMany } from '@adonisjs/lucid/types/relations'
+import Transaction from './transaction.ts';
 
 export default class Client extends BaseModel {
   @column({ isPrimary: true })
@@ -12,12 +13,12 @@ export default class Client extends BaseModel {
   @column()
   declare email: string
 
-  @column.DateTime({autoCreate: true})
+  @column.dateTime({autoCreate: true})
   declare createdAt: DateTime
 
-  @column.DateTime({autoCreate: true, autoUpdate: true})
+  @column.dateTime({autoCreate: true, autoUpdate: true})
   declare updatedAt: DateTime
 
   @hasMany(() => Transaction)
-  declare transactions: hasMany<typeof Transaction>
+  declare transactions: HasMany<typeof Transaction>
 }

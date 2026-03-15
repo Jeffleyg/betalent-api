@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import env from '#start/env'
 import { GatewayProvider, type PaymentRequest, type PaymentResponse } from '#contracts/GatewayProvider'
 

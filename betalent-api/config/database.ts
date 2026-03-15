@@ -12,6 +12,8 @@ const dbConfig = defineConfig({
     /**
      * SQLite connection (default).
      */
+    /* This part of the code defines the configuration for the SQLite connection in the AdonisJS Lucid
+    database configuration. Here's a breakdown of what each key represents: */
     sqlite: {
       client: 'better-sqlite3',
 
@@ -73,30 +75,10 @@ const dbConfig = defineConfig({
      * MySQL / MariaDB connection.
      * Install package to switch: npm install mysql2
      */
-    // mysql: {
-    //   client: 'mysql2',
-    //   connection: {
-    //     host: env.get('DB_HOST'),
-    //     port: env.get('DB_PORT'),
-    //     user: env.get('DB_USER'),
-    //     password: env.get('DB_PASSWORD'),
-    //     database: env.get('DB_DATABASE'),
-    //   },
-    //   migrations: {
-    //     naturalSort: true,
-    //     paths: ['database/migrations'],
-    //   },
-    //   debug: app.inDev,
-    // },
-
-    /**
-     * Microsoft SQL Server connection.
-     * Install package to switch: npm install tedious
-     */
-    mssql: {
-      client: 'mssql',
+    mysql: {
+      client: 'mysql2',
       connection: {
-        server: env.get('DB_HOST', '127.0.0.1'),
+        host: env.get('DB_HOST', '127.0.0.1'),
         port: env.get('DB_PORT', 3306),
         user: env.get('DB_USER', 'root'),
         password: env.get('DB_PASSWORD', 'root'),
@@ -108,6 +90,26 @@ const dbConfig = defineConfig({
       },
       debug: app.inDev,
     },
+
+    /**
+     * Microsoft SQL Server connection.
+     * Install package to switch: npm install tedious
+     */
+    // mssql: {
+    //   client: 'mssql',
+    //   connection: {
+    //     server: env.get('DB_HOST', '127.0.0.1'),
+    //     port: env.get('DB_PORT', 3306),
+    //     user: env.get('DB_USER', 'root'),
+    //     password: env.get('DB_PASSWORD', 'root'),
+    //     database: env.get('DB_DATABASE', 'betalent_db'),
+    //   },
+    //   migrations: {
+    //     naturalSort: true,
+    //     paths: ['database/migrations'],
+    //   },
+    //   debug: app.inDev,
+    // },
 
     /**
      * libSQL (Turso) connection.
